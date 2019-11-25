@@ -43,11 +43,12 @@ class Agent(Client, Automata, AsyncAdvertiser, AsyncTrainer):
         self._last_pwnd = None
         self._history = {}
         self._handshakes = {}
+        #self._cracked = {}
         self.last_session = LastSession(self._config)
         self.mode = 'auto'
 
-        if not os.path.exists(config['bettercap']['handshakes']):
-            os.makedirs(config['bettercap']['handshakes'])
+        if not os.path.exists(config['bettercap']['handshakes']): #['cracked']
+            os.makedirs(config['bettercap']['handshakes']) #[cracked]
 
         logging.info("%s@%s (v%s)" % (pwnagotchi.name(), self.fingerprint(), pwnagotchi.version))
         for _, plugin in plugins.loaded.items():
@@ -264,6 +265,21 @@ class Agent(Client, Automata, AsyncAdvertiser, AsyncTrainer):
 
         if new_shakes > 0:
             self._view.on_handshakes(new_shakes)
+            
+    #def _update_cracked(self, new_cracks=0):
+    #    if new_cracks > 0:
+    #        self._epoch.track(crack=True, inc=new_cracks)
+
+    #    tot = utils.total_unique_cracks(self._config['bettercap']['handshakes']['cracks'])
+    #    txt = '%d (%d)' % (len(self._cracks), tot)
+
+    #    if self._last_pwnd is not None:
+    #        txt += ' [%s]' % self._last_pwnd[:20]
+
+    #    self._view.set('cracks', txt)
+
+    #    if new_cracks > 0:
+    #        self._view.on_cracks(new_cracks)
 
     def _update_peers(self):
         self._view.set_closest_peer(self._closest_peer, len(self._peers))
@@ -281,6 +297,7 @@ class Agent(Client, Automata, AsyncAdvertiser, AsyncTrainer):
                 'epoch': self._epoch.epoch,
                 'history': self._history,
                 'handshakes': self._handshakes,
+                #'cracks': self._cracks,
                 'last_pwnd': self._last_pwnd
             }
             json.dump(data, fp)
@@ -293,6 +310,7 @@ class Agent(Client, Automata, AsyncAdvertiser, AsyncTrainer):
                 self._started_at = data['started_at']
                 self._epoch.epoch = data['epoch']
                 self._handshakes = data['handshakes']
+                #self._cracks = data['cracks']
                 self._history = data['history']
                 self._last_pwnd = data['last_pwnd']
 
@@ -354,6 +372,8 @@ class Agent(Client, Automata, AsyncAdvertiser, AsyncTrainer):
 
             finally:
                 self._update_handshakes(new_shakes)
+                
+    #def ADD CRACK DEF
 
     def start_event_polling(self):
         _thread.start_new_thread(self._event_poller, ())
