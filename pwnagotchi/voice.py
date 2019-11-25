@@ -151,6 +151,10 @@ class Voice:
     def on_handshakes(self, new_shakes):
         s = 's' if new_shakes > 1 else ''
         return self._('Cool, we got {num} new handshake{plural}!').format(num=new_shakes, plural=s)
+    
+    #def on_crack(self, new_crack):
+    #    s = 's' if new_crack > 1 else ''
+    #    return self._('Cool, we got {num} new creds{plural}!').format(num=new_cracks, plural=s)
 
     def on_unread_messages(self, count, total):
         s = 's' if count > 1 else ''
@@ -163,6 +167,7 @@ class Voice:
         status = self._('Kicked {num} stations\n').format(num=last_session.deauthed)
         status += self._('Made {num} new friends\n').format(num=last_session.associated)
         status += self._('Got {num} handshakes\n').format(num=last_session.handshakes)
+        #status += self._('Got {num} creds\n').format(num=last_session.cracks)
         if last_session.peers == 1:
             status += self._('Met 1 peer')
         elif last_session.peers > 0:
