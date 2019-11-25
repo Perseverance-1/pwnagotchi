@@ -34,7 +34,9 @@ def describe(extended=False):
                             # assocs
                             1 +
                             # handshakes
-                            1)
+                            1) #+
+                            # cracked
+                            #1)
 
 
 def featurize(state, step):
@@ -63,4 +65,6 @@ def featurize(state, step):
         [state['num_associations'] / tot_interactions],
         # handshakes
         [state['num_handshakes'] / tot_interactions],
+        # cracked
+        #[state['num_crack'] / tot_interactions],
     ))
