@@ -21,6 +21,7 @@ class LastSession(object):
     DEAUTH_TOKEN = 'deauthing '
     ASSOC_TOKEN = 'sending association frame to '
     HANDSHAKE_TOKEN = '!!! captured new handshake '
+    #CRACK_TOKEN = '!!! captured new cred '
     PEER_TOKEN = 'detected unit '
 
     def __init__(self, config):
@@ -35,6 +36,7 @@ class LastSession(object):
         self.deauthed = 0
         self.associated = 0
         self.handshakes = 0
+        #self.cracks = 0
         self.peers = 0
         self.last_peer = None
         self.epochs = 0
@@ -72,6 +74,7 @@ class LastSession(object):
         self.deauthed = 0
         self.associated = 0
         self.handshakes = 0
+        #self.cracks = 0
         self.epochs = 0
         self.train_epochs = 0
         self.peers = 0
@@ -107,6 +110,10 @@ class LastSession(object):
                 elif LastSession.HANDSHAKE_TOKEN in line and line not in cache:
                     self.handshakes += 1
                     cache[line] = 1
+                    
+                #elif LastSession.CRACK_TOKEN in line and line not in cache:
+                #    self.cracks += 1
+                #    cache[line] = 1    
 
                 elif LastSession.TRAINING_TOKEN in line:
                     self.train_epochs += 1
