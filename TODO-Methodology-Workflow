@@ -1,0 +1,103 @@
+Pentest Methodology TODO list
+
+Other notes:
+-Calculate proper reward values
+-Stealthy, noisey? Highter reward based off most stealthy?
+-Anonsurf, Streisand? 
+-Higher reward for faster exploit
+-Add SDR functionality?
+-Fluxion functionality?
+
+From Pwnagotchi, bettercap:
+    Scan networks, deauth, get key.
+
+Implementations: *OFFENSIVE*
+    crack key    
+    use key    
+    scan network for ports, os, version
+        Port scan
+            nmap
+                If no ports open try other method like "nmap -Pn", Etc., Etc.
+        Operating system(s)
+            Computer
+                Windows
+                Linux
+                iOS
+                Other
+            Phones
+                Andriod
+                iOS
+                Windows
+                Etc.
+                Etc.
+            IoT
+                Roku
+                Google Alexa/dot/home
+                Etc.
+                Etc.
+        Version(s)
+    Vuln Scan:
+        Find most effective route. OpenVAS?
+    Run scanned items through exploit db:
+        use top 5 exploits that match closest to parameters?
+    Exploit:
+        Auto compile from Exploitdb or keep local and execute?
+        Machine creds
+            from exploit or sniffing
+    Create shell:
+        Netcat
+        Meterpreter
+        Etc.
+        Etc.
+    Privilege Escalation
+        exploits
+    Persistence
+        Determine risk\reward ratio?
+
+Add rewards for items: *OFFENSIVE*
+    Crack +5
+    Port Scan
+        Open_ports +.05
+        hidden_open_ports +.1
+        closed_ports -.001 (MAYBE?)
+        Vuln_ports +1
+    OS     <-- reward in conjuntion with os+version+quickness=reward?-->
+        OS_w #Windows
+        OS_l #Linux
+        OS_i #iOS
+        OS_t #Things
+          t-Roku
+          t-googleAlexa
+          t-googledot
+          t-etc
+          t-etc
+    Version
+        Research most recent vulnerable versions
+    Vuln
+        vuln_total +.001*found    #Multiply by number of vulns found
+        vuln_high    #higher severity=higher reward
+        vuln_low    #lower severity=lower reward
+    Exploit
+        exploit_success +5
+        exploit_fail -.05
+    Creds
+        Exploit
+        Sniffing
+        admin_cred
+    Shell
+        shell_success +.01
+        shell_priv +5    #escalated privilege shell
+        shell_fail -.01
+    Persistence
+        persist_success
+        persist_fail
+
+Implementations: *DEFENSIVE*
+    Snort/Barnyard/BASE
+    Hack Back upon verified attack fingerprint?
+    
+Add rewards for items: *DEFENSIVE*
+    blocked_request    #one or multiple Ping size request
+    blocked_attack    #Larger fingerprinted attack
+    blocked_attack-m    #Multiple attacks from same IP
+    blocked_attack-c    #Multiple attacks from same IP w/different
