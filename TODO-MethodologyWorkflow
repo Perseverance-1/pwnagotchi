@@ -81,9 +81,9 @@ Add rewards for items: *OFFENSIVE*
         exploit_success +5
         exploit_fail -.05
     Creds
-        Exploit
-        Sniffing
-        admin_cred
+        cred_dump +.5*total #multiply by total
+        cred_sniff +.5*total #multiply by total
+        cred_admin +1*total #multiply by total
     Shell
         shell_success +.01
         shell_priv +5    #escalated privilege shell
