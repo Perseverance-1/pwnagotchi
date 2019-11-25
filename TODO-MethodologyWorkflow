@@ -12,7 +12,7 @@ From Pwnagotchi, bettercap:
     Scan networks, deauth, get key.
 
 Implementations: *OFFENSIVE*
-    crack key    
+    crack key #added code to everywhere "pwnagotchi" folder
     use key    
     scan network for ports, os, version
         Port scan
