@@ -31,8 +31,12 @@ class Epoch(object):
         self.num_missed = 0
         # did get any handshake in this epoch?
         self.did_handshakes = False
+        #**did crack any handshakes in this epoch?
+        #self.did_crack = False
         # number of handshakes captured in this epoch
         self.num_shakes = 0
+        #** number of hanshakes cracked in this epoch
+        #self.num_crack = 0
         # number of channels hops
         self.num_hops = 0
         # number of seconds sleeping
@@ -146,6 +150,8 @@ class Epoch(object):
         if handshake:
             self.num_shakes += inc
             self.did_handshakes = True
+            #self.num_crack += inc
+            #self.did_crack = True
 
         if sleep:
             self.num_slept += inc
@@ -154,6 +160,11 @@ class Epoch(object):
         if self.any_activity is False and self.did_handshakes is False:
             self.inactive_for += 1
             self.active_for = 0
+            
+        #if self.any_activity is False and self.did_crack is False:
+        #    self.inactive_for += 1
+        #    self.active_for = 0    
+            
         else:
             self.active_for += 1
             self.inactive_for = 0
@@ -180,6 +191,7 @@ class Epoch(object):
             'num_deauths': self.num_deauths,
             'num_associations': self.num_assocs,
             'num_handshakes': self.num_shakes,
+            #'num_crack': self.num_crack,
             'cpu_load': cpu,
             'mem_usage': mem,
             'temperature': temp
@@ -189,7 +201,7 @@ class Epoch(object):
         self._epoch_data_ready.set()
 
         logging.info("[epoch %d] duration=%s slept_for=%s blind=%d inactive=%d active=%d peers=%d tot_bond=%.2f "
-                     "avg_bond=%.2f hops=%d missed=%d deauths=%d assocs=%d handshakes=%d cpu=%d%% mem=%d%% "
+                     "avg_bond=%.2f hops=%d missed=%d deauths=%d assocs=%d handshakes=%d cpu=%d%% mem=%d%% " #crack=%d
                      "temperature=%dC reward=%s" % (
                          self.epoch,
                          utils.secs_to_hhmmss(self.epoch_duration),
@@ -205,6 +217,7 @@ class Epoch(object):
                          self.num_deauths,
                          self.num_assocs,
                          self.num_shakes,
+                         #self.num_crack,
                          cpu * 100,
                          mem * 100,
                          temp,
@@ -221,7 +234,9 @@ class Epoch(object):
         self.num_assocs = 0
         self.num_missed = 0
         self.did_handshakes = False
+        #self.did_crack = False
         self.num_shakes = 0
+        #self.num_crack = 0
         self.num_hops = 0
         self.num_slept = 0
         self.any_activity = False
