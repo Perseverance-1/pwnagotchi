@@ -1,5 +1,8 @@
 Pentest Methodology TODO list
 
+If you found this know, I suck at coding and am trying to learn more by attemping to add to this fork with the knowlege 
+I have about the hacker world. This will be an ongoing thing as I hope the main branch will be.
+
 Other notes:
 -Calculate proper reward values
 -Stealthy, noisey? Highter reward based off most stealthy?
@@ -13,33 +16,73 @@ From Pwnagotchi, bettercap:
 
 Implementations: *OFFENSIVE*
     crack key #added code to everywhere "pwnagotchi" folder
-    use key    
+        If {handshake}==true
+        while true do; aircrack-ng -w password.lst -{recent.bssid} {recent.psk}.cap
+        file add bit to trigger when .cap was attempted or cracked
+        elsif {KEY FOUND}==true 
+            do {use.key}
+        elsif "No valid WPA handshakes found", rm {recent.cap}
+        elsif "0 handshakes", rm {recent.cap}
+        elsif {next.cap}
+        else {recrack.cap}
+    use key #SET LIMIT FOR APs TO CONNECT TO
+        if {use.key}==true do;
+            #macchanger -m{assoc.client.mac} #to stay stealthy, if manditory(mac filtering)? 
+            nano /etc/wpa_supplicant.conf
+                network={
+                ssid="{current.ap}"
+                psk="{use.key}"
+                }
+            wpa_supplicant -B -i {interface} -c /etc/wpa_supplicant.conf
+                if output==true
+                    do; {port.scan}
+         else {recrack.cap}       
     scan network for ports, os, version
         Port scan
-            nmap
-                If no ports open try other method like "nmap -Pn", Etc., Etc.
+            if {port.scan}==true do;
+                ifconfig | grep inet | awk #NEED TO FIND PROPER METHOD# $inet 
+                nmap -vv -sC -sV -O -xO {ap.nmap} -p1-65535 '$inet'/24 
+            elsif {ap.nmap}='no ports open' 
+                nmap -vv -Pn -sC -sV -O -xO {ap.nmap} -p1-65535 '$interface'/24 
+        sort from file and make into variable     
         Operating system(s)
             Computer
-                Windows
-                Linux
-                iOS
-                Other
+                Windows $os.win
+                Linux $os.lin
+                iOS $os.ios
+                Other $os.other
             Phones
-                Andriod
-                iOS
-                Windows
+                Andriod $mob.and
+                iOS $mob.ios
+                Windows $mob.win
                 Etc.
                 Etc.
             IoT
-                Roku
+                Roku $iot.roku
                 Google Alexa/dot/home
+                    $goog.alex
+                    $goog.dot
+                    $goog.home
                 Etc.
                 Etc.
         Version(s)
+            windows 
+                $ver.w.10
+                $ver.w.8
+                etc.
+                etc.
+            linux
+                ubuntu $ver.l.u.18
+                redhat $ver.l.r
+                centos $ver.l.c
+                etc.
+                etc.
+        concatinate, i.e'$os.win, $ver.8' each result{scan.result} and pass to {searchsploit} 
     Vuln Scan:
-        Find most effective route. OpenVAS?
+        Find most effective route. nmap, OpenVAS?
     Run scanned items through exploit db:
         use top 5 exploits that match closest to parameters?
+        searchsploit {scan.result} > file to iterate through each for each{scan.result}
     Exploit:
         Auto compile from Exploitdb or keep local and execute?
         Machine creds
