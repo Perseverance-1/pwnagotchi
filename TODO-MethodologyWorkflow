@@ -16,6 +16,7 @@ From Pwnagotchi, bettercap:
 
 Implementations: *OFFENSIVE*
     crack key #added code to everywhere "pwnagotchi" folder
+        *plugin quickdic does this*
         If {handshake}==true
         while true do; aircrack-ng -w password.lst -{recent.bssid} {recent.psk}.cap
         file add bit to trigger when .cap was attempted or cracked
