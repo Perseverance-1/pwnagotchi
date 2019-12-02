@@ -10,6 +10,8 @@ Other notes:
 -Higher reward for faster exploit
 -Add SDR functionality?
 -Fluxion functionality?
+-Implement "Task hijacking" like "Strandhogg" 
+    REF: promon.co
 
 From Pwnagotchi, bettercap:
     Scan networks, deauth, get key.
