@@ -3,7 +3,7 @@ Pentest Methodology TODO list
 If you found this know, I suck at coding and am trying to learn more by attemping to add to this fork with the knowlege 
 I have about the hacker world. This will be an ongoing thing as I hope the main branch will be.
 
-Other notes:
+Other notes/ideas:
 -Calculate proper reward values
 -Stealthy, noisey? Highter reward based off most stealthy?
 -Anonsurf, Streisand? 
@@ -12,6 +12,8 @@ Other notes:
 -Fluxion functionality?
 -Implement "Task hijacking" like "Strandhogg" 
     REF: promon.co
+-Exfiltration plugin
+    Idea from @GeekaBoos puzzle.
 
 From Pwnagotchi, bettercap:
     Scan networks, deauth, get key.
