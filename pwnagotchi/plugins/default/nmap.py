@@ -3,34 +3,36 @@ Not complete, yet..
 //
 
 import logging
-
+import subprocess
 import pwnagotchi.plugins as plugins
 from pwnagotchi.ui.components import LabeledValue
 from pwnagotchi.ui.view import BLACK
 import pwnagotchi.ui.fonts as fonts
+#import nmap
 
-class Example(plugins.Plugin):
+class nmap(plugins.Plugin):
     __author__ = 'Perseverance'
     __version__ = '1.0.0'
     __license__ = 'GPL3'
-    __description__ = 'An nmap plugin for pwnagotchi that implements port scanning after login to AP'
+    __name__ = 'nmap'
+    __description__ = 'An nmap plugin for pwnagotchi that implements port scanning post login'
 
     def __init__(self):
-        logging.debug("example plugin created")
-
-    # called when http://<host>:<port>/plugins/<plugin>/ is called
-    # must return a html page
-    # IMPORTANT: If you use "POST"s, add a csrf-token (via csrf_token() and render_template_string)
-    def on_webhook(self, path, request):
-        pass
-
-    # called when the plugin is loaded
+        logging.info("[Loaded] nmap plugin")
+        
     def on_loaded(self):
-        logging.warning("WARNING: this plugin should be disabled! options = " % self.options)
-
-    # called when the hardware display setup is done, display is an hardware specific object
-    def on_display_setup(self, display):
-        pass
+        cracked = ['ls ~/handshakes/ | grep *.cracked']
+        if 'cracked' not in self.options or ('cracked' in self.options and self.options['cracked'] is None):
+            logging.info("[NMAP] No handshakes cracked")
+        else:
+            crack = subprocess.run(('aircrack-ng -w `echo '+OPTIONS['wordlist_folder']+'*.txt | sed \'s/\ /,/g\'` -l '+filename+'.cracked -q -b '+crack+' '+filename+' | grep KEY'),shell=True,stdout=subprocess.PIPE)
+    crack = crack.stdout.decode('utf-8').strip()
+    logging.info("[quickdic] "+result2)
+    if result2 != "KEY NOT FOUND":
+        key = re.search('\[(.*)\]', crack)
+        pwd = str(key.group(1))
+        set_text("Cracked password: "+pwd)
+        display.update(force=True)
 
     # called when everything is ready and the main loop is about to start
     def on_ready(self, agent):
