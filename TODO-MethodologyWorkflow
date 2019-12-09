@@ -14,6 +14,8 @@ Other notes/ideas:
     REF: promon.co
 -Exfiltration plugin
     Idea from @GeekaBoos puzzle.
+-brutespray for enumerating nmap xml output
+    https://github.com/x90skysn3k/brutespray
 
 From Pwnagotchi, bettercap:
     Scan networks, deauth, get key.
