@@ -10,19 +10,17 @@ from pwnagotchi.ui.view import BLACK
 import pwnagotchi.ui.fonts as fonts
 
 '''
-brute needed, to install:
-apt-get install nmap
-Output stored in nmap folder as nmap.xml
-Use in conjunction with brutespray plugin to dig deeper.
-Output in /usr/share/brutespray/brutesprat_output
+brutespray needed, to install:
+git cone https://github.com/x90skysn3k/brutespray.git /usr/share/
+Output in /usr/share/brutespray/brutespray-output/
 '''
 
-class nmap(plugins.Plugin):
+class brute(plugins.Plugin):
     __author__ = 'Perseverance'
     __version__ = '1.0.0'
     __license__ = 'GPL3'
     __name__ = 'nmap'
-    __description__ = 'An nmap plugin for pwnagotchi that implements port scanning post login'
+    __description__ = 'A service brutforce plugin for pwnagotchi that implements service bruteforcing post nmap scan'
 
     def __init__(self):
         self.text_to_set = ""
@@ -32,7 +30,7 @@ class nmap(plugins.Plugin):
 
     def on_ready(self, agent):
         logging.info("[Brutespray] Spraying Network")
-        brute = subprocess.run(('/usr/share/brutespray/./brutespray.py `echo -f /nmap/nmap.xml -t3 -P /opt/wordlists/ -c` '),shell=True,stdout=subprocess.PIPE)
+        brute = subprocess.run(('/usr/share/brutespray/./brutespray.py `echo -f /nmap/nmap.xml -t3 -P /opt/wordlists/*.txt -c` '),shell=True,stdout=subprocess.PIPE)
         logging.info("brutespray complete")
 
     # called when the AI finished loading
