@@ -1,14 +1,21 @@
-//
-Not complete, yet..
-//
+#Not complete, yet..
 
 import logging
 import subprocess
+import string
+import re
 import pwnagotchi.plugins as plugins
 from pwnagotchi.ui.components import LabeledValue
 from pwnagotchi.ui.view import BLACK
 import pwnagotchi.ui.fonts as fonts
-#import nmap
+
+'''
+nmap needed, to install:
+apt-get install nmap
+
+Output stored in nmap folder as nmap.xml
+Use in conjunction with brutespray plugin to dig deeper.
+'''
 
 class nmap(plugins.Plugin):
     __author__ = 'Perseverance'
@@ -18,29 +25,19 @@ class nmap(plugins.Plugin):
     __description__ = 'An nmap plugin for pwnagotchi that implements port scanning post login'
 
     def __init__(self):
-        logging.info("[Loaded] nmap plugin")
+        self.text_to_set = ""
         
     def on_loaded(self):
-        cracked = ['ls ~/handshakes/ | grep *.cracked']
-        if 'cracked' not in self.options or ('cracked' in self.options and self.options['cracked'] is None):
-            logging.info("[NMAP] No handshakes cracked")
-        else:
-            crack = subprocess.run(('aircrack-ng -w `echo '+OPTIONS['wordlist_folder']+'*.txt | sed \'s/\ /,/g\'` -l '+filename+'.cracked -q -b '+crack+' '+filename+' | grep KEY'),shell=True,stdout=subprocess.PIPE)
-    crack = crack.stdout.decode('utf-8').strip()
-    logging.info("[quickdic] "+result2)
-    if result2 != "KEY NOT FOUND":
-        key = re.search('\[(.*)\]', crack)
-        pwd = str(key.group(1))
-        set_text("Cracked password: "+pwd)
-        display.update(force=True)
+        logging.info("[nmap] Plugin Loaded")
 
-    # called when everything is ready and the main loop is about to start
     def on_ready(self, agent):
-        logging.info("unit is ready")
-        # you can run custom bettercap commands if you want
-        #   agent.run('ble.recon on')
-        # or set a custom state
-        #   agent.set_bored()
+        logging.info("Scan initiating")
+        hostname = socket.gethostname()
+        ip = socket.gethostbyname(hostname)
+        ip = ip[:ip.rfind('.')+1] + '0/24'
+        logging.info("Running scan on: " + ip)
+        recon = subprocess.run(('/usr/bin/nmap `echo -sC -sV -O -oX /nmap/nmap.xml` '+ ip +''),shell=True,stdout=subprocess.PIPE)
+        logging.info("Scan complete")
 
     # called when the AI finished loading
     def on_ai_ready(self, agent):
