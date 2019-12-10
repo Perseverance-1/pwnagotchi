@@ -1,7 +1,11 @@
 Pentest Methodology TODO list
 
-If you found this know, I suck at coding and am trying to learn more by attemping to add to this fork with the knowlege 
+If you found this know, I suck at coding and am trying to learn more by attemping to add to this fork with the knowledge 
 I have about the hacker world. This will be an ongoing thing as I hope the main branch will be.
+
+Plugins started and needs work:
+    nmap.py for scanning post AP login
+    brutespray.py for enumerating machine services
 
 Other notes/ideas:
 -Calculate proper reward values
@@ -14,25 +18,16 @@ Other notes/ideas:
     REF: promon.co
 -Exfiltration plugin
     Idea from @GeekaBoos puzzle.
--brutespray for enumerating nmap xml output
-    https://github.com/x90skysn3k/brutespray
+-Use multiple "gotchis" to tag team each phase?
 
 From Pwnagotchi, bettercap:
     Scan networks, deauth, get key.
 
 Implementations: *OFFENSIVE*
     crack key #added code to everywhere "pwnagotchi" folder
-        *plugin quickdic does this*
-        If {handshake}==true
-        while true do; aircrack-ng -w password.lst -{recent.bssid} {recent.psk}.cap
-        file add bit to trigger when .cap was attempted or cracked
-        elsif {KEY FOUND}==true 
-            do {use.key}
-        elsif "No valid WPA handshakes found", rm {recent.cap}
-        elsif "0 handshakes", rm {recent.cap}
-        elsif {next.cap}
-        else {recrack.cap}
-    use key #SET LIMIT FOR APs TO CONNECT TO
+        *plugin quickdic does this* 
+           
+    Log into AP , use key #SET LIMIT FOR APs TO CONNECT TO?
         if {use.key}==true do;
             #macchanger -m{assoc.client.mac} #to stay stealthy, if manditory(mac filtering)? 
             nano /etc/wpa_supplicant.conf
@@ -43,14 +38,15 @@ Implementations: *OFFENSIVE*
             wpa_supplicant -B -i {interface} -c /etc/wpa_supplicant.conf
                 if output==true
                     do; {port.scan}
-         else {recrack.cap}       
-    scan network for ports, os, version
+         else {recrack.cap}
+         
+    scan network for ports, os, version *nmap plugin started*
         Port scan
             if {port.scan}==true do;
-                ifconfig | grep inet | awk #NEED TO FIND PROPER METHOD# $inet 
-                nmap -vv -sC -sV -O -xO {ap.nmap} -p1-65535 '$inet'/24 
+                need arguments 
             elsif {ap.nmap}='no ports open' 
-                nmap -vv -Pn -sC -sV -O -xO {ap.nmap} -p1-65535 '$interface'/24 
+                *needs arguments in plugin
+                
         sort from file and make into variable     
         Operating system(s)
             Computer
@@ -85,6 +81,10 @@ Implementations: *OFFENSIVE*
                 etc.
                 etc.
         concatinate, i.e'$os.win, $ver.8' each result{scan.result} and pass to {searchsploit} 
+    
+    Enumerate Machines and crack services
+        *brutespray plugin started*
+    
     Vuln Scan:
         Find most effective route. nmap, OpenVAS?
     Run scanned items through exploit db:
