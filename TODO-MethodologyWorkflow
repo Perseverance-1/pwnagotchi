@@ -20,6 +20,8 @@ Other notes/ideas:
 -Exfiltration plugin
     Idea from @GeekaBoos puzzle.
 -Use multiple "gotchis" to tag team each phase?
+-Bluebourn plugin for BLE vectors.
+
 
 From Pwnagotchi, bettercap:
     Scan networks, deauth, get key.
